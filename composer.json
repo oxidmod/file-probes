@@ -1,0 +1,24 @@
+{
+    "name": "oxidmod/file-probes",
+    "description": "File based probes for app containers",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Oxidmod\\FileProbes\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "oxidmod",
+            "email": "oxidmod@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7.2 || ^8.0"
+    },
+    "require-dev": {
+        "eaglewu/swoole-ide-helper": "dev-master"
+    }
+}
