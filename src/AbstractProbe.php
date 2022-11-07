@@ -15,10 +15,16 @@ abstract class AbstractProbe implements ProbeInterface
     /** @var string */
     protected $filePath;
 
+    /** @var callable */
+    protected $checkAction;
+
     public function __construct(int $requiredMarksNum, string $filePath)
     {
         $this->requiredMarksNum = $requiredMarksNum;
         $this->filePath = $filePath;
+        $this->checkAction = function () {
+            $this->processMarksNum();
+        };
 
         if (file_exists($this->filePath)) {
             unlink($this->filePath);
@@ -27,19 +33,17 @@ abstract class AbstractProbe implements ProbeInterface
 
     public function markReady(): void
     {
-        $this->doMarkReady();
-        $this->processMarksNum();
+        $this->doMarkReady($this->checkAction);
     }
 
     public function markNotReady(): void
     {
-        $this->doMarkNotReady();
-        $this->processMarksNum();
+        $this->doMarkNotReady($this->checkAction);
     }
 
-    abstract protected function doMarkReady(): void;
+    abstract protected function doMarkReady(callable $checkAction): void;
 
-    abstract protected function doMarkNotReady(): void;
+    abstract protected function doMarkNotReady(callable $checkAction): void;
 
     abstract protected function getReadyMarksNum(): int;
 

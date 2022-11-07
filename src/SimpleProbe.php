@@ -8,14 +8,16 @@ class SimpleProbe extends AbstractProbe
     /** @var int */
     private $counter = 0;
 
-    protected function doMarkReady(): void
+    protected function doMarkReady(callable $checkAction): void
     {
         $this->counter++;
+        $checkAction();
     }
 
-    protected function doMarkNotReady(): void
+    protected function doMarkNotReady(callable $checkAction): void
     {
         $this->counter--;
+        $checkAction();
     }
 
     protected function getReadyMarksNum(): int
