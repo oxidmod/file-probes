@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Oxidmod\FileProbes;
+namespace Oxidmod\FileProbes\Probe;
 
+use Oxidmod\FileProbes\DecisionInterface;
 use Swoole\Atomic;
 use Swoole\Lock;
 
@@ -14,12 +15,15 @@ class SwooleProbe extends AbstractProbe
     /** @var Lock */
     private $lock;
 
-    public function __construct(int $requiredMarksNum, string $filePath)
-    {
+    public function __construct(
+        string $filePath,
+        DecisionInterface $startupDecision,
+        DecisionInterface $runtimeDecision
+    ) {
         $this->counter = new Atomic(0);
         $this->lock = new Lock();
 
-        parent::__construct($requiredMarksNum, $filePath);
+        parent::__construct($filePath, $startupDecision, $runtimeDecision);
     }
 
     protected function doMarkReady(callable $checkAction): void

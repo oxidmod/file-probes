@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Oxidmod\FileProbes;
+namespace Oxidmod\FileProbes\Probe;
 
 class SimpleProbe extends AbstractProbe
 {
